@@ -16,7 +16,7 @@ app.add_middleware(
 
 # Load student marks from JSON
 students = {}
-with open('q-vercel-data.json', mode='r') as file:
+with open('q-vercel-python.json', mode='r') as file:
     data = json.load(file)
     for entry in data:
         students[entry['name']] = int(entry['marks'])
