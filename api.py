@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import csv
+import json
 from typing import List
 
 app = FastAPI()
@@ -14,12 +14,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load student marks from CSV
+# Load student marks from JSON
 students = {}
-with open('data.csv', mode='r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        students[row['name']] = int(row['marks'])
+with open('q-vercel-data.json', mode='r') as file:
+    data = json.load(file)
+    for entry in data:
+        students[entry['name']] = int(entry['marks'])
 
 @app.get("/api")
 async def get_marks(name: List[str]):
